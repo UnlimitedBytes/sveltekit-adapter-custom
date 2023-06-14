@@ -35,16 +35,13 @@ export default function (options = {}) {
             fs.writeFileSync(
                 `${out}/package.json`,
                 JSON.stringify({
-                    private: true,
-                    type: 'module',
-                    name: packageJson.name,
-                    version: packageJson.version,
+                    private: packageJson.private ?? true,
+                    type: packageJson.type ?? 'module',
+                    name: packageJson.name || 'sveltekit-custom-server',
+                    version: packageJson.version || '1.0.0',
                     main: 'index.js',
                     dependencies: {
                         ...(packageJson.dependencies || {}),
-                        '@sveltejs/kit': '^1.0.0-next.377',
-                        'mrmime': '^1.0.1',
-                        'totalist': '^3.0.0',
                     },
                 })
             );
