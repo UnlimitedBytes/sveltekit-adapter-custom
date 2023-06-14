@@ -1,11 +1,14 @@
+// @ts-ignore
 import { fileURLToPath } from 'url';
 import fs from 'node:fs';
 import path from 'node:path';
 
+// @ts-ignore
 const files = fileURLToPath(new URL('./files', import.meta.url).href);
 
 /** @type {import('.').default} */
 export default function (options = {}) {
+    // @ts-ignore
     const { out = 'build', precompress, envPrefix = '', polyfill = true } = options;
 
     return {
@@ -26,7 +29,10 @@ export default function (options = {}) {
                     encoding: 'utf-8',
                 });
                 packageJson = JSON.parse(packageJsonContent);
-            } catch (error) {
+            } catch (
+                /** @type {any} */
+                error
+            ) {
                 builder.log.error("Couldn't load package.json from your sveltekit project.");
                 builder.log.error(error);
                 return;
