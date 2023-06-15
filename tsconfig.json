@@ -31,5 +31,6 @@
         "noPropertyAccessFromIndexSignature": true,
         "allowUnusedLabels": false,
         "allowUnreachableCode": false
-    }
+    },
+    "include": ["index.js", "src/**/*.js"]
 }

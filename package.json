@@ -16,6 +16,7 @@
         "url": "https://unlimitedbytes.ovh"
     },
     "scripts": {
+        "check:typescript": "tsc",
         "prepare": "husky install",
         "semantic-release": "semantic-release",
         "dev": "rimraf files && rollup -cw",
