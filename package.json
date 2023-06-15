@@ -21,6 +21,7 @@
     ],
     "scripts": {
         "lint": "prettier --check .",
+        "format": "prettier --write .",
         "check": "tsc",
         "prepare": "husky install",
         "semantic-release": "semantic-release",
