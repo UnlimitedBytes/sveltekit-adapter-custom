@@ -1,0 +1,32 @@
+name: TypeScript
+on:
+    push:
+        branches:
+            - develop
+    pull_request:
+        branches:
+            - main
+            - develop
+
+jobs:
+    typecheck:
+        runs-on: ubuntu-latest
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        steps:
+            - uses: actions/checkout@v3
+
+            - name: Set Node.js 16.x
+              uses: actions/setup-node@v3
+              with:
+                  node-version: 16.x
+
+            - name: Run install
+              uses: borales/actions-yarn@v4
+              with:
+                  cmd: install
+
+            - name: Run install
+              uses: borales/actions-yarn@v4
+              with:
+                  cmd: check:typescript
