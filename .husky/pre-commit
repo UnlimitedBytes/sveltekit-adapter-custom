@@ -1,3 +1,4 @@
 #!/bin/sh
-yarn lint-staged
-yarn check:typescript
+yarn run lint-staged
+yarn run lint
+yarn run check
