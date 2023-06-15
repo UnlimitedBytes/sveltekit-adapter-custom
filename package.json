@@ -14,6 +14,11 @@
         "email": "admin@unlimitedbytes.ovh",
         "url": "https://unlimitedbytes.ovh"
     },
+    "files": [
+        "files",
+        "index.d.ts",
+        "index.js"
+    ],
     "scripts": {
         "lint": "prettier --check .",
         "check": "tsc",
