@@ -1,17 +1,39 @@
 name: Release
+
 on:
     push:
         branches:
             - main
 
+permissions: {}
+
 jobs:
     release:
+        # prevents this action from running on forks
+        if: github.repository == 'UnlimitedBytes/sveltekit-adapter-custom'
+        name: Release
         runs-on: ubuntu-latest
+        permissions:
+            contents: write # to be able to publish a GitHub release
+            issues: write # to be able to comment on released issues
+            pull-requests: write # to be able to comment on released pull requests
         steps:
-            - name: Checkout
+            - name: Checkout Repository
               uses: actions/checkout@v3
               with:
+                  fetch-depth: 0
                   persist-credentials: false
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+            - name: Setup Node.js LTS
+              uses: actions/setup-node@v3
+              with:
+                  node-version: lts/*
+                  cache: yarn
+
+            - name: Install dependencies
+              run: yarn install --frozen-lockfile
 
             - name: Semantic Release
               uses: cycjimmy/semantic-release-action@v3
@@ -21,3 +43,4 @@ jobs:
                       @semantic-release/git
               env:
                   GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+                  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

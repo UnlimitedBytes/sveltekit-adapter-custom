@@ -1,12 +1,18 @@
 name: CI
+
 on:
     push:
         branches:
-            - develop
-    pull_request:
-        branches:
             - main
-            - develop
+    pull_request:
+
+# cancel in-progress runs on new commits to same PR (gitub.event.number)
+concurrency:
+    group: ${{ github.workflow }}-${{ github.event.number || github.sha }}
+    cancel-in-progress: true
+
+permissions:
+    contents: read # to fetch code (actions/checkout)
 
 jobs:
     commitlint:
@@ -14,30 +20,50 @@ jobs:
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         steps:
-            - uses: actions/checkout@v3
+            - name: Checkout Repository
+              uses: actions/checkout@v3
               with:
                   fetch-depth: 0
 
-            - uses: wagoid/commitlint-github-action@v5
+            - name: Lint Commits
+              uses: wagoid/commitlint-github-action@v5
+
+    codelint:
+        runs-on: ubuntu-latest
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        steps:
+            - name: Checkout Repository
+              uses: actions/checkout@v3
+
+            - name: Setup Node.js Latest
+              uses: actions/setup-node@v3
+              with:
+                  node-version: latest
+                  cache: yarn
+
+            - name: Install dependencies
+              run: yarn install --frozen-lockfile
+
+            - name: Run Linter
+              run: yarn run lint
 
     typescript-check:
         runs-on: ubuntu-latest
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         steps:
-            - uses: actions/checkout@v3
+            - name: Checkout Repository
+              uses: actions/checkout@v3
 
             - name: Setup Node.js Latest
               uses: actions/setup-node@v3
               with:
                   node-version: latest
+                  cache: yarn
 
-            - name: Run yarn install
-              uses: borales/actions-yarn@v4
-              with:
-                  cmd: install
+            - name: Install dependencies
+              run: yarn install --frozen-lockfile
 
-            - name: Run typescript check
-              uses: borales/actions-yarn@v4
-              with:
-                  cmd: check:typescript
+            - name: Run TypeScript Check
+              run: yarn run check
