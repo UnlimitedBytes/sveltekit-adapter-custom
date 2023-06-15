@@ -50,3 +50,6 @@ yarn.lock
 
 # Build output
 files
+
+# Changelog
+CHANGELOG.md
