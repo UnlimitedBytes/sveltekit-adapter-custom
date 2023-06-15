@@ -1,4 +1,4 @@
-name: TypeScript
+name: CI
 on:
     push:
         branches:
@@ -9,24 +9,35 @@ on:
             - develop
 
 jobs:
-    typecheck:
+    commitlint:
+        runs-on: ubuntu-latest
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        steps:
+            - uses: actions/checkout@v3
+              with:
+                  fetch-depth: 0
+
+            - uses: wagoid/commitlint-github-action@v5
+
+    typescript-check:
         runs-on: ubuntu-latest
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         steps:
             - uses: actions/checkout@v3
 
-            - name: Set Node.js Latest
+            - name: Setup Node.js Latest
               uses: actions/setup-node@v3
               with:
                   node-version: latest
 
-            - name: Run install
+            - name: Run yarn install
               uses: borales/actions-yarn@v4
               with:
                   cmd: install
 
-            - name: Run install
+            - name: Run typescript check
               uses: borales/actions-yarn@v4
               with:
                   cmd: check:typescript
