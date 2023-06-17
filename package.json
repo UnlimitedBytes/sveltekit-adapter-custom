@@ -17,7 +17,9 @@
     "files": [
         "files",
         "index.d.ts",
-        "index.js"
+        "index.js",
+        "plugin.d.ts",
+        "plugin.js"
     ],
     "scripts": {
         "lint": "prettier --check .",
