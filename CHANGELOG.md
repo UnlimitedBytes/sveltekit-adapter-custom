@@ -1,3 +1,10 @@
+# [1.0.0-alpha.4](https://github.com/UnlimitedBytes/sveltekit-adapter-custom/compare/v1.0.0-alpha.3...v1.0.0-alpha.4) (2023-06-17)
+
+
+### Features
+
+* add plugin to delivery ([26bb2f1](https://github.com/UnlimitedBytes/sveltekit-adapter-custom/commit/26bb2f120075d81f4fecef453ee19fd48f7e6b1b))
+
 # [1.0.0-alpha.3](https://github.com/UnlimitedBytes/sveltekit-adapter-custom/compare/v1.0.0-alpha.2...v1.0.0-alpha.3) (2023-06-15)
 
 ### Features
