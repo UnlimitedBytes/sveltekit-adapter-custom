@@ -61,7 +61,7 @@ too.
 
 ### 📦 Getting Started
 
-Simply run `npm i -D sveltekit-adapter-custom`, change the adapter in your `svelte.config.js`:
+Simply run `npm i -D sveltekit-adapter-custom@alpha`, change the adapter in your `svelte.config.js`:
 
 ```js
 // svelte.config.js
